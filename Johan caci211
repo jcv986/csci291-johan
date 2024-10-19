@@ -1,0 +1,239 @@
+#include <stdio.h>
+#include <stdlib.h>  // For rand()
+
+/*ESPRESSO INGREDIENT*/
+#define e_c 8
+#define e_w 30
+#define e_m 0
+#define e_choc 0
+#define e_p 3.5
+
+/*CAPPUCCINO INGREDIENTS*/
+#define c_c 8
+#define c_w 30
+#define c_m 70
+#define c_cho 0
+#define c_p 4.5
+
+/*MOCHA INGREDIENTS*/
+#define m_c 8
+#define m_w 39
+#define m_m 160
+#define m_cho 30
+#define m_p 5.5
+
+#define password 2211
+
+int admin_menu(int val); // Function prototype declaration
+void replenish_ingredients(); // Declare the replenish function prototype
+void change_price(void); // Declare the change price function prototype
+
+int main(){
+    int value;
+    printf("Enter 1: Order a coffee type\nEnter 2: Admin mode for the coffee maker operator\nEnter 3: End the application execution\n");
+    scanf("%d", &value);
+    
+    while(1)
+    {
+        if (value != 1 && value != 2 && value != 3) {
+            printf("Enter 1: Order a coffee type\nEnter 2: Admin mode for the coffee maker operator\nEnter 3: End the application execution\n");
+        }
+        else {
+            break;
+        }
+    }
+
+    admin_menu(value);
+    admin_menu(value);  // Call admin_menu twice (as per your original code)
+}
+
+int admin_menu(int val) {
+    if (val == 2) {
+        int m;
+        printf("Entering admin mode\n");
+        printf("Enter admin password\n");
+        scanf("%d", &m);
+        
+        if (m == password) {
+            int a;
+            printf("Enter 1: Display the quantity of each ingredient in the machine and the total sale amount\n");
+            printf("Enter 2: Replenish ingredients in the machine\n");
+            printf("Enter 3: Change coffee price\n");
+            printf("Enter 0: Exit the Admin Mode function\n");
+            scanf("%d", &a);
+            
+            if (a == 2) {
+                replenish_ingredients();  // Call the replenish function if admin chooses option 2
+            }
+            else if (a == 3) {
+                change_price();  // Call the change price function if admin chooses option 3
+            }
+        }
+        else {
+            printf("Incorrect password.\n");
+        }
+    }
+    return 0; // Add a return statement
+}
+
+void replenish_ingredients() {
+    int coffee_beans = rand() % 45 + 5;
+    int coffee_water = rand() % 95 + 5;
+    int coffee_milk = rand() % 245 + 5;
+    int coffee_chocolate_syrup = rand() % 75 + 5;
+
+    printf("Replenishing ingredients...\n");
+    printf("%d coffee beans, %d coffee water\n", coffee_beans, coffee_water);
+    printf("%d coffee milk, %d coffee chocolate syrup\n", coffee_milk, coffee_chocolate_syrup);
+}
+
+void change_price(void) {
+    int l;
+    float new_price;
+
+    printf("Type 1: To change price of espresso\n");
+    printf("Type 2: To change price of cappuccino\n");
+    printf("Type 3: To change price of mocha\n");
+    printf("Enter your choice: ");
+    scanf("%d", &l);
+
+    switch (l) {
+        case 1:
+            printf("Enter the new price of espresso: ");
+            scanf("%f", &new_price);  
+            printf("Espresso Price has been changed to %.2f\n\n", new_price);
+            break;
+        case 2:
+            printf("Enter the new price of cappuccino: ");
+            scanf("%f", &new_price); 
+            printf("Cappuccino Price has been changed to %.2f\n\n", new_price);
+            break;
+        case 3:
+            printf("Enter the new price of mocha: ");
+            scanf("%f", &new_price);  
+            printf("Mocha Price has been changed to %.2f\n\n", new_price);
+            break;
+        default:
+            printf("Invalid choice. Please select 1, 2, or 3.\n");
+            break;
+    }
+}#include <stdio.h>
+#include <stdlib.h>  // For rand()
+
+/*ESPRESSO INGREDIENT*/
+#define e_c 8
+#define e_w 30
+#define e_m 0
+#define e_choc 0
+#define e_p 3.5
+
+/*CAPPUCCINO INGREDIENTS*/
+#define c_c 8
+#define c_w 30
+#define c_m 70
+#define c_cho 0
+#define c_p 4.5
+
+/*MOCHA INGREDIENTS*/
+#define m_c 8
+#define m_w 39
+#define m_m 160
+#define m_cho 30
+#define m_p 5.5
+
+#define password 2211
+
+int admin_menu(int val); // Function prototype declaration
+void replenish_ingredients(); // Declare the replenish function prototype
+void change_price(void); // Declare the change price function prototype
+
+int main(){
+    int value;
+    printf("Enter 1: Order a coffee type\nEnter 2: Admin mode for the coffee maker operator\nEnter 3: End the application execution\n");
+    scanf("%d", &value);
+    
+    while(1)
+    {
+        if (value != 1 && value != 2 && value != 3) {
+            printf("Enter 1: Order a coffee type\nEnter 2: Admin mode for the coffee maker operator\nEnter 3: End the application execution\n");
+        }
+        else {
+            break;
+        }
+    }
+
+    admin_menu(value);
+    admin_menu(value);  // Call admin_menu twice (as per your original code)
+}
+
+int admin_menu(int val) {
+    if (val == 2) {
+        int m;
+        printf("Entering admin mode\n");
+        printf("Enter admin password\n");
+        scanf("%d", &m);
+        
+        if (m == password) {
+            int a;
+            printf("Enter 1: Display the quantity of each ingredient in the machine and the total sale amount\n");
+            printf("Enter 2: Replenish ingredients in the machine\n");
+            printf("Enter 3: Change coffee price\n");
+            printf("Enter 0: Exit the Admin Mode function\n");
+            scanf("%d", &a);
+            
+            if (a == 2) {
+                replenish_ingredients();  // Call the replenish function if admin chooses option 2
+            }
+            else if (a == 3) {
+                change_price();  // Call the change price function if admin chooses option 3
+            }
+        }
+        else {
+            printf("Incorrect password.\n");
+        }
+    }
+    return 0; // Add a return statement
+}
+
+void replenish_ingredients() {
+    int coffee_beans = rand() % 45 + 5;
+    int coffee_water = rand() % 95 + 5;
+    int coffee_milk = rand() % 245 + 5;
+    int coffee_chocolate_syrup = rand() % 75 + 5;
+
+    printf("Replenishing ingredients...\n");
+    printf("%d coffee beans, %d coffee water\n", coffee_beans, coffee_water);
+    printf("%d coffee milk, %d coffee chocolate syrup\n", coffee_milk, coffee_chocolate_syrup);
+}
+
+void change_price(void) {
+    int l;
+    float new_price;
+
+    printf("Type 1: To change price of espresso\n");
+    printf("Type 2: To change price of cappuccino\n");
+    printf("Type 3: To change price of mocha\n");
+    printf("Enter your choice: ");
+    scanf("%d", &l);
+
+    switch (l) {
+        case 1:
+            printf("Enter the new price of espresso: ");
+            scanf("%f", &new_price);  
+            printf("Espresso Price has been changed to %.2f\n\n", new_price);
+            break;
+        case 2:
+            printf("Enter the new price of cappuccino: ");
+            scanf("%f", &new_price); 
+            printf("Cappuccino Price has been changed to %.2f\n\n", new_price);
+            break;
+        case 3:
+            printf("Enter the new price of mocha: ");
+            scanf("%f", &new_price);  
+            printf("Mocha Price has been changed to %.2f\n\n", new_price);
+            break;
+        default:
+            printf("Invalid choice. Please select 1, 2, or 3.\n");
+            break;
+    }
+}
