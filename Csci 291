@@ -1,43 +1,111 @@
+
 #include <stdio.h>
+#include <stdbool.h>
+#define SIZE 12
+#define ROWS 3
+#define COLS 4
+
+bool isPositionValid(const int array[], int length, int index);
+void removeItem(int array[], int length, int index);
+void insertItem(int array[], int length, int index, int value);
+void reshapeArray(const int array[], int length, int numRows, int numCols, int reshapedArray[numRows][numCols]);
+void transposeMatrix(int numRows, int numCols, const int matrix[numRows][numCols], int transposedMatrix[numCols][numRows]);
 
 int main() {
-    int balance = 1000;
+    int array[SIZE];
+    for (int i = 0; i < SIZE; i++) {
+        array[i] = (i + 1) * 10;
+    }
 
-    int transactions[] = {200, -300, 400, -1000, 500, -1200, 600, -50};
-    int n_transactions = sizeof(transactions) / sizeof(transactions[0]);
+    int reshapedArray[ROWS][COLS];
+    int index;
+    int value = 80;
+    int option;
+   
+    printf("Choose a function to apply on the array \n (1- Remove element 2- Insert element 3- Reshape 4- Transpose matrix)\n");
+    scanf("%d", &option);
 
-    int tobeprocessed[n_transactions];
-    int unprocessed_count = 0;
+    if (option == 1 || option == 2) {
+        printf("Enter position:\n");
+        scanf("%d", &index);
+    }
 
-    for (int i = 0; i < n_transactions; i++) {
-        int transaction = transactions[i];
-
-        if (transaction < 0 && balance + transaction < 0) {
-            tobeprocessed[unprocessed_count++] = transaction;
-            printf("Skipping invalid withdrawal of %d due to insufficient balance.\n", -transaction);
-            continue;
+    if (isPositionValid(array, SIZE, index)) {
+        printf("Position is within range\n");
+        if (option == 1) {
+            removeItem(array, SIZE, index);
+        } else if (option == 2) {
+            insertItem(array, SIZE, index, value);
         }
 
-        balance += transaction;
+        for (int j = 0; j < SIZE; j++) {
+            printf("%d ", array[j]);
+        }
+        printf("\n");
+    } else if (option == 1 || option == 2) {
+        printf("Position out of range\n");
+    }
 
-        if (balance == 0) {
-            printf("Balance reached zero. No further transactions will be processed.\n");
-            tobeprocessed[unprocessed_count++] = transaction;
-            
-            for (int j = i + 1; j < n_transactions; j++) {
-                tobeprocessed[unprocessed_count++] = transactions[j];
+    if (option == 3) {
+        reshapeArray(array, SIZE, ROWS, COLS, reshapedArray);
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLS; j++) {
+                printf("%d  ", reshapedArray[i][j]);
             }
-            break; 
+            printf("\n");
+        }
+    } else if (option == 4) {
+        int matrix[ROWS][COLS] = {{10, 20, 30}, {80, 90, 100}};
+        int transposedMatrix[COLS][ROWS];
+        transposeMatrix(ROWS, COLS, matrix, transposedMatrix);
+
+        for (int i = 0; i < COLS; i++) {
+            for (int j = 0; j < ROWS; j++) {
+                printf("%d  ", transposedMatrix[i][j]);
+            }
+            printf("\n");
         }
     }
-
-    printf("Final balance: %d AED\n", balance);
-
-    printf("Unprocessed transactions:\n");
-    for (int i = 0; i < unprocessed_count; i++) {
-        printf("%d ", tobeprocessed[i]);
-    }
-    printf("\n");
 
     return 0;
+}
+
+bool isPositionValid(const int array[], int length, int index) {
+    return index >= 0 && index < length;
+}
+
+void removeItem(int array[], int length, int index) {
+    for (int i = index; i < length - 1; i++) {
+        array[i] = array[i + 1];
+    }
+    array[length - 1] = 0;
+}
+
+void insertItem(int array[], int length, int index, int value) {
+    for (int i = length - 1; i > index; i--) {
+        array[i] = array[i - 1];
+    }
+    array[index] = value;
+}
+
+void reshapeArray(const int array[], int length, int numRows, int numCols, int reshapedArray[numRows][numCols]) {
+    if (length != numRows * numCols) {
+        printf("1D array dimensions do not match the 2D array.\n");
+        return;
+    }
+
+    int k = 0;
+    for (int i = 0; i < numRows; i++) {
+        for (int j = 0; j < numCols; j++) {
+            reshapedArray[i][j] = array[k++];
+        }
+    }
+}
+
+void transposeMatrix(int numRows, int numCols, const int matrix[numRows][numCols], int transposedMatrix[numCols][numRows]) {
+    for (int i = 0; i < numCols; i++) {
+        for (int j = 0; j < numRows; j++) {
+            transposedMatrix[i][j] = matrix[j][i];
+        }
+    }
 }
