@@ -1,0 +1,48 @@
+#include <stdio.h>
+#define initial_balance 1000
+
+int main() {
+    int balance = initial_balance;
+    int transactions[] = {200, -150, -500, -400, -50, -200, 300};
+    int tobeprocessed[sizeof(transactions) / sizeof(transactions[0])];
+    int tobeprocessed_num = 0;
+    int num_of_transactions = sizeof(transactions) / sizeof(transactions[0]);
+
+    for (int i = 0; i < num_of_transactions; i++) {
+        int transaction = transactions[i];
+
+        switch ((transaction < 0) ? 1 : 0) {
+            case 1:
+                if (transaction + balance < 0 || balance == 0) {
+                    tobeprocessed[tobeprocessed_num++] = transaction;
+                    if (balance == 0) {
+                        printf("No balance left. Transactions cannot be processed.\n");
+                        i = num_of_transactions;
+                    } else {
+                        printf("Transaction %d failed: Insufficient funds for %d AED withdrawal.\n", i + 1, -transaction);
+                    }
+                } else {
+                    balance += transaction;
+                }
+                break;
+
+            case 0:
+                balance += transaction;
+                break;
+        }
+    }
+
+    printf("Your final balance is %d AED.\n", balance);
+
+    if (tobeprocessed_num > 0) {
+        printf("Unprocessed transactions:\n");
+        for (int i = 0; i < tobeprocessed_num; i++) {
+            printf("%d ", tobeprocessed[i]);
+        }
+        printf("\n");
+    } else {
+        printf("There are no unprocessed transactions.\n");
+    }
+
+    return 0;
+}
