@@ -1,0 +1,42 @@
+//headers
+#include<iostream>
+#include<iomanip>
+#include<cstdlib>
+using namespace std;
+
+//function and template declaration
+void displayFormatted(float value, int width, int precision);
+template <typename T> //template declaration
+void adjustValues(T& num1, T& num2, T multiplier = 10);
+
+int main(void) {
+    float x = 0; //initializing the first float variable
+    float y = 0; //initializing the second float variable
+    cout << " Please input two real numbers: "; //ask the user to enter 2 real numbers
+    cin >> x >> y; //extract data from standard input device
+
+    displayFormatted(x, 7, 3); //send the inputted float and parameters to the function
+    displayFormatted(y, 7, 3); //send the inputted float and parameters to the function
+
+    // call the function adjustValues with ONLY the actual parameters x and y
+    adjustValues(x, y);
+
+    displayFormatted(x, 7, 3); //call the displayFormatted() function after updating x and y
+    displayFormatted(y, 7, 3); //call the displayFormatted() function after updating x and y
+}
+
+//function definition
+
+void displayFormatted(float value, int width, int precision) { //function to print the float in the specified format
+    cout << fixed << setprecision(precision) << setw(width) << value << endl;
+}
+
+// add the function definition (header+body) of the template function adjustValues
+template <typename T> //definition for the adjustValues() function
+void adjustValues(T& num1, T& num2, T multiplier) {
+    T temp1 = num1; //storing the original values temporarily
+    T temp2 = num2; //storing the original values temporarily
+
+    num1 = (temp1 + temp2) * multiplier; //update num1 using the original values and multiplier (default 10)
+    num2 = (temp1 - temp2) * multiplier; //update num2 using the original values and multiplier (default 10)
+}
